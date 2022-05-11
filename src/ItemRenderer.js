@@ -23,6 +23,7 @@ export default class ItemRenderer extends PureComponent<Props, void> {
       data,
       disableDefaultTooltips,
       focusedNode,
+      keyboardFocusedNode,
       handleMouseEnter,
       handleMouseLeave,
       handleMouseMove,
@@ -66,6 +67,9 @@ export default class ItemRenderer extends PureComponent<Props, void> {
           disableDefaultTooltips={disableDefaultTooltips}
           height={rowHeight}
           isDimmed={index < focusedNode.depth}
+          isKeyboardFocused={
+            keyboardFocusedNode && uid === keyboardFocusedNode.uid
+          }
           key={uid}
           label={node.name}
           onClick={() => itemData.focusNode(uid)}

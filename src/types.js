@@ -20,6 +20,7 @@ export type ChartNode = {|
   source: RawData,
   tooltip?: string,
   width: number,
+  children?: Array<ChartNode>,
 |};
 
 export type ChartData = {|
@@ -33,6 +34,7 @@ export type ItemData = {|
   data: ChartData,
   disableDefaultTooltips: boolean,
   focusedNode: ChartNode,
+  keyboardFocusedNode: ChartNode,
   focusNode: (chartNode: ChartNode, uid: any) => void,
   handleMouseEnter: (event: SyntheticMouseEvent<*>, node: RawData) => void,
   handleMouseLeave: (event: SyntheticMouseEvent<*>, node: RawData) => void,

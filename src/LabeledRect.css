@@ -5,7 +5,9 @@
 .rect {
   cursor: pointer;
   stroke: #ffffff;
-  transition: all ease-in-out 200ms;
+  transition-property: width, height, transform;
+  transition-timing-function: ease-in-out;
+  transition-duration: 200ms;
 }
 
 .foreignObject {

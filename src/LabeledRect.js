@@ -13,6 +13,7 @@ type Props = {|
   disableDefaultTooltips: boolean,
   height: number,
   isDimmed?: boolean,
+  isKeyboardFocused: boolean,
   label: string,
   onClick: Function,
   onMouseEnter: (event: SyntheticMouseEvent<*>, node: RawData) => void,
@@ -30,6 +31,7 @@ const LabeledRect = ({
   disableDefaultTooltips,
   height,
   isDimmed = false,
+  isKeyboardFocused,
   label,
   onClick,
   onMouseEnter,
@@ -54,7 +56,7 @@ const LabeledRect = ({
     <rect
       width={width}
       height={height}
-      fill={backgroundColor}
+      fill={isKeyboardFocused ? 'red' : backgroundColor}
       onClick={onClick}
       className={styles.rect}
       style={{

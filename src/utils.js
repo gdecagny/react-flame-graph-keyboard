@@ -30,7 +30,8 @@ export function transformChartData(rawData: RawData): ChartData {
   function convertNode(
     sourceNode: RawData,
     depth: number,
-    leftOffset: number
+    leftOffset: number,
+    parentUid?: string
   ): ChartNode {
     const {
       backgroundColor,
@@ -45,7 +46,7 @@ export function transformChartData(rawData: RawData): ChartData {
     const uidOrCounter = id || `_${uidCounter}`;
 
     // Add this node to the node-map and assign it a UID.
-    const targetNode = (nodes[uidOrCounter] = {
+    nodes[uidOrCounter] = {
       backgroundColor:
         backgroundColor || getNodeBackgroundColor(value, maxValue),
       color: color || getNodeColor(value, maxValue),
@@ -55,7 +56,9 @@ export function transformChartData(rawData: RawData): ChartData {
       source: sourceNode,
       tooltip,
       width: value / maxValue,
-    });
+      uid: uidOrCounter,
+      parentUid,
+    };
 
     // Register the node's depth within the graph.
     if (levels.length <= depth) {
@@ -68,17 +71,19 @@ export function transformChartData(rawData: RawData): ChartData {
 
     // Process node children.
     if (Array.isArray(children)) {
-      children.forEach(sourceChildNode => {
+      nodes[uidOrCounter].children = children.map(sourceChildNode => {
         const targetChildNode = convertNode(
           sourceChildNode,
           depth + 1,
-          leftOffset
+          leftOffset,
+          uidOrCounter
         );
         leftOffset += targetChildNode.width;
+        return targetChildNode;
       });
     }
 
-    return targetNode;
+    return nodes[uidOrCounter];
   }
 
   convertNode(rawData, 0, 0);
