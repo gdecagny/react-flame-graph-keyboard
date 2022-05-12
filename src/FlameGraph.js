@@ -227,7 +227,6 @@ export default class FlameGraph extends PureComponent<Props, State> {
   };
 
   handleKeyDown = (event: any) => {
-    console.log(event.code);
     const handlers = {
       Space: this.focusKeyboardNode,
       ArrowUp: this.keyboardFocusParent,
